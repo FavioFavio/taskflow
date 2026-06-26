@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TaskFlow
+
+TaskFlow is organized as a small monorepo with separated frontend and backend folders.
+
+```text
+taskflow/
+  frontend/   Next.js app
+  backend/    Reserved for a future dedicated backend service
+  docs/       Project documentation
+```
 
 ## Getting Started
 
-First, run the development server:
+From the project root, install dependencies and run the frontend:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You can also run commands directly inside the frontend workspace:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+cd frontend
+npm run dev
+```
 
-## Learn More
+## Backend Strategy
 
-To learn more about Next.js, take a look at the following resources:
+There is no separate Spring Boot backend yet. Today, server-side behavior is handled by Next.js and Supabase in the frontend app.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+That is a valid architecture for this stage. Add a Spring Boot service under `backend/` when the project needs a dedicated API layer, complex business rules, background processing, or integrations that should not live in the Next.js app.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Common Commands
 
-## Deploy on Vercel
+```bash
+npm run dev
+npm run build
+npm run lint
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+These commands are defined at the root and delegated to the `frontend` workspace.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

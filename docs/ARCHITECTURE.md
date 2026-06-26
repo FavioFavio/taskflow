@@ -14,9 +14,21 @@
 
 ---
 
-# Folder Structure
+# Repository Structure
 
-src
+taskflow
+
+frontend
+
+backend
+
+docs
+
+---
+
+# Frontend Structure
+
+frontend/src
 
 app
 
@@ -83,6 +95,8 @@ One responsibility per component.
 Business logic belongs inside services.
 
 UI components must not communicate directly with Supabase.
+
+For the current MVP, server-side frontend code can use Supabase through dedicated server utilities, actions, and services. A separate backend service should be introduced only when the app needs independent API ownership, complex business workflows, background jobs, or multiple clients.
 
 ---
 
