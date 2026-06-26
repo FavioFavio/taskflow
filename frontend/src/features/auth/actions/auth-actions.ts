@@ -26,9 +26,7 @@ function getSafeRedirectPath(next?: string) {
   return "/dashboard";
 }
 
-export async function loginAction(
-  values: unknown
-): Promise<AuthActionState> {
+export async function loginAction(values: unknown): Promise<AuthActionState> {
   const parsedValues = loginActionSchema.safeParse(values);
 
   if (!parsedValues.success) {
@@ -53,7 +51,7 @@ export async function loginAction(
 }
 
 export async function registerAction(
-  values: unknown
+  values: unknown,
 ): Promise<AuthActionState> {
   const parsedValues = registerSchema.safeParse(values);
 
@@ -66,10 +64,9 @@ export async function registerAction(
 
   if (error) {
     return {
-      error:
-        error.message.toLowerCase().includes("already")
-          ? "Ya existe una cuenta con ese email."
-          : DEFAULT_AUTH_ERROR,
+      error: error.message.toLowerCase().includes("already")
+        ? "Ya existe una cuenta con ese email."
+        : DEFAULT_AUTH_ERROR,
     };
   }
 

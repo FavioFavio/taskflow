@@ -59,9 +59,7 @@ export function RegisterForm() {
         error={errors.password?.message}
         registration={register("password")}
       />
-      {formError ? (
-        <AuthFeedback tone="error">{formError}</AuthFeedback>
-      ) : null}
+      {formError ? <AuthFeedback tone="error">{formError}</AuthFeedback> : null}
       {formMessage ? (
         <AuthFeedback tone="success">{formMessage}</AuthFeedback>
       ) : null}

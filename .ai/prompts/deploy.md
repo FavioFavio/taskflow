@@ -34,8 +34,8 @@ Ensure the application builds without warnings or errors.
 
 Run
 
-* npm run lint
-* npm run build
+- npm run lint
+- npm run build
 
 Resolve build issues before deployment.
 
@@ -111,14 +111,14 @@ ARIA attributes when necessary
 
 # Production Checklist
 
-* No console.log
-* No commented code
-* No TODOs
-* No unused imports
-* No TypeScript errors
-* No ESLint errors
-* No duplicated code
-* No hardcoded secrets
+- No console.log
+- No commented code
+- No TODOs
+- No unused imports
+- No TypeScript errors
+- No ESLint errors
+- No duplicated code
+- No hardcoded secrets
 
 ---
 

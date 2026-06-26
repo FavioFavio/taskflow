@@ -58,15 +58,16 @@ export function LoginForm({ nextPath }: LoginFormProps) {
         error={errors.password?.message}
         registration={register("password")}
       />
-      {formError ? (
-        <AuthFeedback tone="error">{formError}</AuthFeedback>
-      ) : null}
+      {formError ? <AuthFeedback tone="error">{formError}</AuthFeedback> : null}
       <Button type="submit" className="h-10 w-full" disabled={isPending}>
         {isPending ? "Ingresando..." : "Ingresar"}
       </Button>
       <p className="text-muted-foreground text-center text-sm">
         No tenes cuenta?{" "}
-        <Link className="text-foreground font-medium underline" href="/register">
+        <Link
+          className="text-foreground font-medium underline"
+          href="/register"
+        >
           Crear cuenta
         </Link>
       </p>
