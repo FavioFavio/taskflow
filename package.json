@@ -9,6 +9,12 @@
     "dev": "npm --workspace frontend run dev",
     "build": "npm --workspace frontend run build",
     "start": "npm --workspace frontend run start",
-    "lint": "npm --workspace frontend run lint"
+    "lint": "npm --workspace frontend run lint",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
+  },
+  "devDependencies": {
+    "prettier": "^3.8.5",
+    "prettier-plugin-tailwindcss": "^0.8.0"
   }
 }
