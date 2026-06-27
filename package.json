@@ -10,6 +10,7 @@
     "build": "npm --workspace frontend run build",
     "start": "npm --workspace frontend run start",
     "lint": "npm --workspace frontend run lint",
+    "test": "npm --workspace frontend run test",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "prepare": "husky"
