@@ -14,15 +14,15 @@ Always prioritize readability over cleverness.
 
 # Stack
 
-* Next.js 16
-* React 19
-* TypeScript
-* Tailwind CSS v4
-* shadcn/ui
-* Supabase
-* React Hook Form
-* Zod
-* TanStack Query
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS v4
+- shadcn/ui
+- Supabase
+- React Hook Form
+- Zod
+- TanStack Query
 
 Never replace these technologies.
 
@@ -68,13 +68,13 @@ Never create duplicated folders.
 
 # Code Style
 
-* Functional components only.
-* Strict TypeScript.
-* No any.
-* Reusable components.
-* Small files.
-* Clear naming.
-* No unnecessary comments.
+- Functional components only.
+- Strict TypeScript.
+- No any.
+- Reusable components.
+- Small files.
+- Clear naming.
+- No unnecessary comments.
 
 Prefer composition over inheritance.
 
@@ -100,7 +100,7 @@ Always use:
 
 React Hook Form
 
-*
+-
 
 Zod
 
@@ -132,14 +132,14 @@ tasks
 
 Columns
 
-* id
-* title
-* description
-* priority
-* status
-* due_date
-* user_id
-* created_at
+- id
+- title
+- description
+- priority
+- status
+- due_date
+- user_id
+- created_at
 
 Never change database schema without asking.
 

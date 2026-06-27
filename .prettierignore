@@ -1,0 +1,10 @@
+**/node_modules
+**/.next
+**/out
+**/build
+**/coverage
+**/.vercel
+**/target
+*.tsbuildinfo
+package-lock.json
+.env*
