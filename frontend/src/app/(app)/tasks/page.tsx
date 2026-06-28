@@ -1,13 +1,13 @@
 export const metadata = {
-  title: "Tasks | TaskFlow",
+  title: "Tareas | TaskFlow",
 };
 
 export default function TasksPage() {
   return (
     <section className="border-border bg-card text-card-foreground rounded-lg border p-6">
-      <h1 className="text-2xl font-semibold tracking-normal">Tasks</h1>
+      <h2 className="text-2xl font-semibold tracking-normal">Tareas</h2>
       <p className="text-muted-foreground mt-2 text-sm">
-        Task management will be implemented in its feature module.
+        La gestión de tareas se implementará en su módulo de funcionalidad.
       </p>
     </section>
   );

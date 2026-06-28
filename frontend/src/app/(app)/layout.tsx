@@ -18,7 +18,7 @@ export default async function AppLayout({
   }
 
   return (
-    <AuthenticatedShell userEmail={user.email ?? "Account"}>
+    <AuthenticatedShell userEmail={user.email ?? "Cuenta"}>
       {children}
     </AuthenticatedShell>
   );
