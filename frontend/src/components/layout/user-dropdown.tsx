@@ -13,11 +13,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { logoutAction } from "@/features/auth/actions/auth-actions";
 
-type UserMenuProps = {
+type UserDropdownProps = {
   email: string;
 };
 
-export function UserMenu({ email }: UserMenuProps) {
+export function UserDropdown({ email }: UserDropdownProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -25,6 +25,7 @@ export function UserMenu({ email }: UserMenuProps) {
           type="button"
           variant="outline"
           className="max-w-48 justify-start"
+          aria-label="Abrir menú de usuario"
         >
           <UserCircle className="size-4" aria-hidden="true" />
           <span className="truncate">{email}</span>
@@ -33,7 +34,7 @@ export function UserMenu({ email }: UserMenuProps) {
       <DropdownMenuContent align="end" className="w-64">
         <DropdownMenuLabel>
           <span className="text-muted-foreground block text-xs font-normal">
-            Signed in as
+            Sesión iniciada como
           </span>
           <span className="block truncate">{email}</span>
         </DropdownMenuLabel>
@@ -42,7 +43,7 @@ export function UserMenu({ email }: UserMenuProps) {
           <DropdownMenuItem asChild>
             <button type="submit" className="flex w-full items-center gap-2">
               <LogOut className="size-4" aria-hidden="true" />
-              Logout
+              Cerrar sesión
             </button>
           </DropdownMenuItem>
         </form>
