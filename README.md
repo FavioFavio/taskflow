@@ -162,6 +162,12 @@ npm run typecheck
 npm run build
 ```
 
+## Deploy
+
+La aplicación está desplegada en Vercel:
+
+https://taskflow-omega-ebon.vercel.app/
+
 ## Checklist de validación
 
 - Instalar dependencias con `npm install`.
