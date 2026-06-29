@@ -30,15 +30,16 @@ vi.mock("@/features/tasks/services/task-service", () => ({
   updateUserTaskStatus: vi.fn(),
 }));
 
+const getUserMock = vi.fn();
 const supabaseMock = {
   auth: {
-    getUser: vi.fn(),
+    getUser: getUserMock,
   },
-};
+} as unknown as Awaited<ReturnType<typeof createClient>>;
 
 function mockAuthenticatedUser(userId = "user-1") {
   vi.mocked(createClient).mockResolvedValue(supabaseMock);
-  supabaseMock.auth.getUser.mockResolvedValue({
+  getUserMock.mockResolvedValue({
     data: { user: { id: userId } },
   });
 }
@@ -155,7 +156,7 @@ describe("task actions", () => {
   });
 
   it("returns a clear error when the user is not authenticated", async () => {
-    supabaseMock.auth.getUser.mockResolvedValue({
+    getUserMock.mockResolvedValue({
       data: { user: null },
     });
 

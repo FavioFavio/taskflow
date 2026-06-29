@@ -7,21 +7,23 @@ vi.mock("@/lib/supabase/server", () => ({
   createClient: vi.fn(),
 }));
 
+const getUserMock = vi.fn();
+const resetPasswordForEmailMock = vi.fn();
 const supabaseMock = {
   auth: {
-    getUser: vi.fn(),
-    resetPasswordForEmail: vi.fn(),
+    getUser: getUserMock,
+    resetPasswordForEmail: resetPasswordForEmailMock,
   },
-};
+} as unknown as Awaited<ReturnType<typeof createClient>>;
 
 describe("settings actions", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     vi.mocked(createClient).mockResolvedValue(supabaseMock);
-    supabaseMock.auth.getUser.mockResolvedValue({
+    getUserMock.mockResolvedValue({
       data: { user: { email: "usuario@taskflow.test" } },
     });
-    supabaseMock.auth.resetPasswordForEmail.mockResolvedValue({ error: null });
+    resetPasswordForEmailMock.mockResolvedValue({ error: null });
   });
 
   it("sends a password reset email to the authenticated user", async () => {
@@ -31,13 +33,13 @@ describe("settings actions", () => {
       success:
         "Te enviamos un correo con las instrucciones para restablecer tu contraseña.",
     });
-    expect(supabaseMock.auth.resetPasswordForEmail).toHaveBeenCalledWith(
+    expect(resetPasswordForEmailMock).toHaveBeenCalledWith(
       "usuario@taskflow.test",
     );
   });
 
   it("returns a friendly error when there is no authenticated email", async () => {
-    supabaseMock.auth.getUser.mockResolvedValue({
+    getUserMock.mockResolvedValue({
       data: { user: null },
     });
 
@@ -46,11 +48,11 @@ describe("settings actions", () => {
     expect(result).toEqual({
       error: "Necesitás iniciar sesión para solicitar el restablecimiento.",
     });
-    expect(supabaseMock.auth.resetPasswordForEmail).not.toHaveBeenCalled();
+    expect(resetPasswordForEmailMock).not.toHaveBeenCalled();
   });
 
   it("does not expose Supabase errors", async () => {
-    supabaseMock.auth.resetPasswordForEmail.mockResolvedValue({
+    resetPasswordForEmailMock.mockResolvedValue({
       error: { message: "raw auth error" },
     });
 
