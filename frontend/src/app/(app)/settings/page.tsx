@@ -1,12 +1,46 @@
-import { Settings } from "lucide-react";
+import { redirect } from "next/navigation";
+import { CalendarDays, LogOut, Mail, ShieldCheck } from "lucide-react";
 
-import { EmptyState } from "@/components/shared/empty-state";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+} from "@/components/ui/card";
+import { logoutAction } from "@/features/auth/actions/auth-actions";
+import { LanguageSelector } from "@/features/settings/components/language-selector";
+import { PasswordResetButton } from "@/features/settings/components/password-reset-button";
+import { ThemeSelector } from "@/features/settings/components/theme-selector";
+import { createClient } from "@/lib/supabase/server";
+import packageJson from "../../../../package.json";
 
 export const metadata = {
   title: "Configuración | TaskFlow",
 };
 
-export default function SettingsPage() {
+function formatAccountDate(value?: string) {
+  if (!value) {
+    return "No disponible";
+  }
+
+  return new Intl.DateTimeFormat("es", {
+    dateStyle: "long",
+  }).format(new Date(value));
+}
+
+export default async function SettingsPage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  const accountCreatedAt = formatAccountDate(user.created_at);
+
   return (
     <section className="space-y-6">
       <div>
@@ -17,11 +51,98 @@ export default function SettingsPage() {
           Opciones de la cuenta y preferencias de uso.
         </p>
       </div>
-      <EmptyState
-        icon={Settings}
-        title="Configuración no disponible"
-        description="Las opciones de la cuenta estarán disponibles próximamente."
-      />
+
+      <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">
+        <div className="space-y-6">
+          <Card>
+            <CardHeader>
+              <h3 className="text-lg font-semibold tracking-normal">Cuenta</h3>
+              <CardDescription>
+                Información básica de tu sesión actual.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-5">
+              <dl className="grid gap-4 sm:grid-cols-2">
+                <div className="rounded-md border p-4">
+                  <dt className="text-muted-foreground flex items-center gap-2 text-sm">
+                    <Mail className="size-4" aria-hidden="true" />
+                    Correo electrónico
+                  </dt>
+                  <dd className="mt-2 text-sm font-medium break-words">
+                    {user.email ?? "No disponible"}
+                  </dd>
+                </div>
+                <div className="rounded-md border p-4">
+                  <dt className="text-muted-foreground flex items-center gap-2 text-sm">
+                    <CalendarDays className="size-4" aria-hidden="true" />
+                    Cuenta creada
+                  </dt>
+                  <dd className="mt-2 text-sm font-medium">
+                    {accountCreatedAt}
+                  </dd>
+                </div>
+              </dl>
+
+              <form action={logoutAction}>
+                <Button type="submit" variant="outline">
+                  <LogOut className="size-4" aria-hidden="true" />
+                  Cerrar sesión
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <h3 className="text-lg font-semibold tracking-normal">
+                Apariencia
+              </h3>
+              <CardDescription>
+                Elegí cómo querés ver TaskFlow en este dispositivo.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ThemeSelector />
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <h3 className="text-lg font-semibold tracking-normal">
+                Aplicación
+              </h3>
+              <CardDescription>
+                Preferencias generales e información de la versión instalada.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="grid gap-5 sm:grid-cols-2">
+              <LanguageSelector />
+              <div className="space-y-2">
+                <p className="text-sm font-medium">Versión</p>
+                <p className="text-muted-foreground text-sm">
+                  TaskFlow {packageJson.version}
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        <Card className="h-fit">
+          <CardHeader>
+            <h3 className="flex items-center gap-2 text-lg font-semibold tracking-normal">
+              <ShieldCheck className="size-5" aria-hidden="true" />
+              Seguridad
+            </h3>
+            <CardDescription>
+              Solicitá un correo para restablecer tu contraseña mediante el
+              flujo de Supabase.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <PasswordResetButton />
+          </CardContent>
+        </Card>
+      </div>
     </section>
   );
 }
