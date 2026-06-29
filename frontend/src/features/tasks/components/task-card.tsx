@@ -17,6 +17,13 @@ type TaskCardProps = {
   task: Task;
 };
 
+function formatCompletedAt(value: string) {
+  return new Intl.DateTimeFormat("es", {
+    dateStyle: "long",
+    timeStyle: "short",
+  }).format(new Date(value));
+}
+
 export function TaskCard({ task }: TaskCardProps) {
   return (
     <Card>
@@ -38,6 +45,11 @@ export function TaskCard({ task }: TaskCardProps) {
         <p className="text-muted-foreground text-sm leading-6">
           {task.description ?? "Sin descripción."}
         </p>
+        {task.completedAt ? (
+          <p className="text-muted-foreground text-sm">
+            Completada el {formatCompletedAt(task.completedAt)}
+          </p>
+        ) : null}
         <div className="flex flex-col gap-2 sm:flex-row sm:justify-end">
           <TaskFormDialog task={task} />
           <TaskDeleteDialog taskId={task.id} />

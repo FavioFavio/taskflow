@@ -16,6 +16,7 @@ const tasks: Task[] = [
     priority: "High",
     status: "Todo",
     dueDate: null,
+    completedAt: null,
     createdAt: "2026-06-28T00:00:00.000Z",
   },
   {
@@ -25,6 +26,7 @@ const tasks: Task[] = [
     priority: "Medium",
     status: "In Progress",
     dueDate: null,
+    completedAt: null,
     createdAt: "2026-06-28T00:00:00.000Z",
   },
   {
@@ -34,6 +36,7 @@ const tasks: Task[] = [
     priority: "Low",
     status: "Done",
     dueDate: null,
+    completedAt: "2026-06-29T12:30:00.000Z",
     createdAt: "2026-06-28T00:00:00.000Z",
   },
 ];

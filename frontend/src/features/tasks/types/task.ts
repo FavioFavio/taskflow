@@ -11,6 +11,7 @@ export type Task = {
   priority: TaskPriority;
   status: TaskStatus;
   dueDate: string | null;
+  completedAt: string | null;
   createdAt: string;
 };
 
@@ -21,5 +22,6 @@ export type TaskRecord = {
   priority: TaskPriority;
   status: TaskStatus;
   due_date: string | null;
+  completed_at: string | null;
   created_at: string;
 };

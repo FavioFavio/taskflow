@@ -42,6 +42,7 @@ function getDefaultValues(task?: Task): TaskFormValues {
     description: task?.description ?? "",
     priority: task?.priority ?? "Medium",
     status: task?.status ?? "Todo",
+    completedAt: task?.completedAt ?? null,
   };
 }
 
@@ -65,7 +66,11 @@ export function TaskForm({ mode, onSuccess, task }: TaskFormProps) {
       const result =
         mode === "create"
           ? await createTaskAction(values)
-          : await updateTaskAction({ ...values, id: task?.id });
+          : await updateTaskAction({
+              ...values,
+              completedAt: task?.completedAt ?? null,
+              id: task?.id,
+            });
 
       if (result.error) {
         setFormError(result.error);

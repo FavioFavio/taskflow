@@ -85,13 +85,15 @@ describe("task actions", () => {
 
   it("updates a task for the authenticated user", async () => {
     vi.mocked(updateUserTask).mockResolvedValue(undefined);
+    const completedAt = "2026-06-29T12:30:00.000Z";
 
     const result = await updateTaskAction({
       id: "task-1",
       title: "Tarea editada",
       description: "Detalle",
       priority: "High",
-      status: "In Progress",
+      status: "Done",
+      completedAt,
     });
 
     expect(result).toEqual({ success: "Tarea actualizada." });
@@ -103,7 +105,8 @@ describe("task actions", () => {
         title: "Tarea editada",
         description: "Detalle",
         priority: "High",
-        status: "In Progress",
+        status: "Done",
+        completedAt,
       },
     );
   });

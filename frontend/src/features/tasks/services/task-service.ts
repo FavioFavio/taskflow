@@ -8,13 +8,14 @@ import type {
 } from "@/features/tasks/types/task";
 
 const TASKS_SELECT_COLUMNS =
-  "id,title,description,priority,status,due_date,created_at";
+  "id,title,description,priority,status,due_date,completed_at,created_at";
 
 type TaskMutationInput = {
   description?: string;
   priority: TaskPriority;
   status: TaskStatus;
   title: string;
+  completedAt?: string | null;
 };
 
 function mapTaskRecord(record: TaskRecord): Task {
@@ -25,6 +26,7 @@ function mapTaskRecord(record: TaskRecord): Task {
     priority: record.priority,
     status: record.status,
     dueDate: record.due_date,
+    completedAt: record.completed_at,
     createdAt: record.created_at,
   };
 }
@@ -33,6 +35,14 @@ function getTaskDescription(description?: string) {
   const trimmedDescription = description?.trim();
 
   return trimmedDescription ? trimmedDescription : null;
+}
+
+function getTaskCompletedAt(status: TaskStatus, completedAt?: string | null) {
+  if (status !== "Done") {
+    return null;
+  }
+
+  return completedAt ?? new Date().toISOString();
 }
 
 export async function listUserTasks(
@@ -63,6 +73,7 @@ export async function createUserTask(
     description: getTaskDescription(values.description),
     priority: values.priority,
     status: values.status,
+    completed_at: getTaskCompletedAt(values.status, values.completedAt),
     user_id: userId,
   });
 
@@ -84,6 +95,7 @@ export async function updateUserTask(
       description: getTaskDescription(values.description),
       priority: values.priority,
       status: values.status,
+      completed_at: getTaskCompletedAt(values.status, values.completedAt),
     })
     .eq("id", taskId)
     .eq("user_id", userId);
@@ -117,7 +129,10 @@ export async function updateUserTaskStatus(
 ) {
   const { error } = await supabase
     .from("tasks")
-    .update({ status })
+    .update({
+      status,
+      completed_at: getTaskCompletedAt(status),
+    })
     .eq("id", taskId)
     .eq("user_id", userId);
 
