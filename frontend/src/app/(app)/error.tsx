@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { RefreshCcw } from "lucide-react";
 
 import { FeedbackMessage } from "@/components/shared/feedback-message";
@@ -11,11 +10,7 @@ type AppErrorPageProps = {
   reset: () => void;
 };
 
-export default function AppErrorPage({ error, reset }: AppErrorPageProps) {
-  useEffect(() => {
-    console.error(error);
-  }, [error]);
-
+export default function AppErrorPage({ reset }: AppErrorPageProps) {
   return (
     <section className="space-y-4" aria-labelledby="app-error-title">
       <div>
