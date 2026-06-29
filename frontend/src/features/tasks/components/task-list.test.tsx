@@ -84,6 +84,18 @@ describe("TaskList", () => {
     expect(screen.queryByText("Preparar entrega")).not.toBeInTheDocument();
   });
 
+  it("filters tasks in progress", () => {
+    render(<TaskList tasks={tasks} />);
+
+    fireEvent.change(screen.getByLabelText("Estado"), {
+      target: { value: "in_progress" },
+    });
+
+    expect(screen.getByText("Revisar diseño")).toBeInTheDocument();
+    expect(screen.queryByText("Preparar entrega")).not.toBeInTheDocument();
+    expect(screen.queryByText("Enviar resumen")).not.toBeInTheDocument();
+  });
+
   it("filters tasks by priority and combines filters", () => {
     render(<TaskList tasks={tasks} />);
 

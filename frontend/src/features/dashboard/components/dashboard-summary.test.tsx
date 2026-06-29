@@ -9,7 +9,8 @@ describe("DashboardSummary", () => {
       <DashboardSummary
         stats={{
           totalTasks: 8,
-          pendingTasks: 5,
+          pendingTasks: 2,
+          inProgressTasks: 3,
           completedTasks: 3,
         }}
       />,
@@ -17,10 +18,11 @@ describe("DashboardSummary", () => {
 
     expect(screen.getByText("Total de tareas")).toBeInTheDocument();
     expect(screen.getByText("Tareas pendientes")).toBeInTheDocument();
+    expect(screen.getByText("Tareas en proceso")).toBeInTheDocument();
     expect(screen.getByText("Tareas completadas")).toBeInTheDocument();
     expect(screen.getByText("8")).toBeInTheDocument();
-    expect(screen.getByText("5")).toBeInTheDocument();
-    expect(screen.getByText("3")).toBeInTheDocument();
+    expect(screen.getByText("2")).toBeInTheDocument();
+    expect(screen.getAllByText("3")).toHaveLength(2);
   });
 
   it("shows zero values and an empty state when there are no tasks", () => {
@@ -29,12 +31,13 @@ describe("DashboardSummary", () => {
         stats={{
           totalTasks: 0,
           pendingTasks: 0,
+          inProgressTasks: 0,
           completedTasks: 0,
         }}
       />,
     );
 
-    expect(screen.getAllByText("0")).toHaveLength(3);
+    expect(screen.getAllByText("0")).toHaveLength(4);
     expect(screen.getByText("Todavía no hay tareas")).toBeInTheDocument();
     expect(
       screen.getByText(

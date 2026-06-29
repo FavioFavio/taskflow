@@ -8,8 +8,8 @@ export default function DashboardLoading() {
         <Skeleton className="h-4 w-64 max-w-full" />
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        {["total", "pendientes", "completadas"].map((item) => (
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {["total", "pendientes", "en-proceso", "completadas"].map((item) => (
           <div key={item} className="bg-card rounded-lg border p-6 shadow-sm">
             <div className="mb-4 flex items-center justify-between">
               <Skeleton className="h-4 w-32" />

@@ -42,17 +42,28 @@ describe("getDashboardStats", () => {
   it("loads task counts from Supabase and calculates pending tasks", async () => {
     const { queries, supabase } = createSupabaseMock([
       { count: 8, error: null },
+      { count: 2, error: null },
+      { count: 3, error: null },
       { count: 3, error: null },
     ]);
 
     await expect(getDashboardStats(supabase, "user-1")).resolves.toEqual({
       totalTasks: 8,
-      pendingTasks: 5,
+      pendingTasks: 2,
+      inProgressTasks: 3,
       completedTasks: 3,
     });
 
     expect(queries[0]?.filters).toEqual([["user_id", "user-1"]]);
     expect(queries[1]?.filters).toEqual([
+      ["user_id", "user-1"],
+      ["status", "Todo"],
+    ]);
+    expect(queries[2]?.filters).toEqual([
+      ["user_id", "user-1"],
+      ["status", "In Progress"],
+    ]);
+    expect(queries[3]?.filters).toEqual([
       ["user_id", "user-1"],
       ["status", "Done"],
     ]);
@@ -62,11 +73,14 @@ describe("getDashboardStats", () => {
     const { supabase } = createSupabaseMock([
       { count: null, error: null },
       { count: null, error: null },
+      { count: null, error: null },
+      { count: null, error: null },
     ]);
 
     await expect(getDashboardStats(supabase, "user-1")).resolves.toEqual({
       totalTasks: 0,
       pendingTasks: 0,
+      inProgressTasks: 0,
       completedTasks: 0,
     });
   });
@@ -74,6 +88,8 @@ describe("getDashboardStats", () => {
   it("throws a friendly error when Supabase fails", async () => {
     const { supabase } = createSupabaseMock([
       { count: 0, error: { message: "raw database error" } },
+      { count: 0, error: null },
+      { count: 0, error: null },
       { count: 0, error: null },
     ]);
 
