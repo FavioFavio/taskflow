@@ -1,12 +1,50 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import { RotateCcw, Search } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select } from "@/components/ui/select";
 import { TaskCard } from "@/features/tasks/components/task-card";
 import type { Task } from "@/features/tasks/types/task";
+import {
+  DEFAULT_TASK_FILTERS,
+  TASK_PRIORITY_FILTER_LABELS,
+  TASK_PRIORITY_FILTERS,
+  TASK_STATUS_FILTER_LABELS,
+  TASK_STATUS_FILTERS,
+  filterTasks,
+  hasActiveTaskFilters,
+  isTaskPriorityFilter,
+  isTaskStatusFilter,
+  type TaskFilters,
+} from "@/features/tasks/utils/task-filters";
 
 type TaskListProps = {
   tasks: Task[];
 };
 
 export function TaskList({ tasks }: TaskListProps) {
+  const [filters, setFilters] = useState<TaskFilters>(DEFAULT_TASK_FILTERS);
+  const filteredTasks = useMemo(
+    () => filterTasks(tasks, filters),
+    [filters, tasks],
+  );
+  const hasFilters = hasActiveTaskFilters(filters);
+
+  function updateFilter<TKey extends keyof TaskFilters>(
+    key: TKey,
+    value: TaskFilters[TKey],
+  ) {
+    setFilters((currentFilters) => ({
+      ...currentFilters,
+      [key]: value,
+    }));
+  }
+
   if (tasks.length === 0) {
     return (
       <Card>
@@ -23,10 +61,101 @@ export function TaskList({ tasks }: TaskListProps) {
   }
 
   return (
-    <div className="grid gap-4">
-      {tasks.map((task) => (
-        <TaskCard key={task.id} task={task} />
-      ))}
+    <div className="space-y-4">
+      <Card>
+        <CardHeader className="gap-4">
+          <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_180px_180px_auto]">
+            <div className="space-y-2">
+              <Label htmlFor="task-search">Buscar</Label>
+              <div className="relative">
+                <Search
+                  className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2"
+                  aria-hidden="true"
+                />
+                <Input
+                  id="task-search"
+                  className="pl-9"
+                  placeholder="Buscar por título"
+                  value={filters.search}
+                  onChange={(event) =>
+                    updateFilter("search", event.target.value)
+                  }
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="task-status-filter">Estado</Label>
+              <Select
+                id="task-status-filter"
+                value={filters.status}
+                onChange={(event) => {
+                  if (isTaskStatusFilter(event.target.value)) {
+                    updateFilter("status", event.target.value);
+                  }
+                }}
+              >
+                {TASK_STATUS_FILTERS.map((status) => (
+                  <option key={status} value={status}>
+                    {TASK_STATUS_FILTER_LABELS[status]}
+                  </option>
+                ))}
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="task-priority-filter">Prioridad</Label>
+              <Select
+                id="task-priority-filter"
+                value={filters.priority}
+                onChange={(event) => {
+                  if (isTaskPriorityFilter(event.target.value)) {
+                    updateFilter("priority", event.target.value);
+                  }
+                }}
+              >
+                {TASK_PRIORITY_FILTERS.map((priority) => (
+                  <option key={priority} value={priority}>
+                    {TASK_PRIORITY_FILTER_LABELS[priority]}
+                  </option>
+                ))}
+              </Select>
+            </div>
+
+            <div className="flex items-end">
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full"
+                onClick={() => setFilters(DEFAULT_TASK_FILTERS)}
+                disabled={!hasFilters}
+              >
+                <RotateCcw className="size-4" aria-hidden="true" />
+                Limpiar
+              </Button>
+            </div>
+          </div>
+        </CardHeader>
+      </Card>
+
+      {filteredTasks.length === 0 ? (
+        <Card>
+          <CardHeader>
+            <h3 className="text-xl font-semibold tracking-normal">
+              No encontramos tareas
+            </h3>
+            <CardDescription>
+              Probá ajustar la búsqueda o limpiar los filtros.
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      ) : (
+        <div className="grid gap-4">
+          {filteredTasks.map((task) => (
+            <TaskCard key={task.id} task={task} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
