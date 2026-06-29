@@ -35,7 +35,7 @@ export function TaskCard({ task }: TaskCardProps) {
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
-        <p className="text-muted-foreground text-sm">
+        <p className="text-muted-foreground text-sm leading-6">
           {task.description ?? "Sin descripción."}
         </p>
         <div className="flex flex-col gap-2 sm:flex-row sm:justify-end">

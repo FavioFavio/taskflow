@@ -45,7 +45,7 @@ export function RegisterForm() {
     <form className="space-y-5" onSubmit={handleSubmit(onSubmit)} noValidate>
       <AuthFormField
         id="email"
-        label="Email"
+        label="Correo electrónico"
         type="email"
         autoComplete="email"
         error={errors.email?.message}
@@ -53,7 +53,7 @@ export function RegisterForm() {
       />
       <AuthFormField
         id="password"
-        label="Contrasena"
+        label="Contraseña"
         type="password"
         autoComplete="new-password"
         error={errors.password?.message}
@@ -67,9 +67,9 @@ export function RegisterForm() {
         {isPending ? "Creando cuenta..." : "Crear cuenta"}
       </Button>
       <p className="text-muted-foreground text-center text-sm">
-        Ya tenes cuenta?{" "}
+        ¿Ya tenés cuenta?{" "}
         <Link className="text-foreground font-medium underline" href="/login">
-          Iniciar sesion
+          Iniciar sesión
         </Link>
       </p>
     </form>

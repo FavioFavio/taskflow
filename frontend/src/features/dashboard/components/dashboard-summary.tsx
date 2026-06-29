@@ -1,11 +1,7 @@
 import { CheckCircle2, CircleDashed, ClipboardList } from "lucide-react";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-} from "@/components/ui/card";
+import { EmptyState } from "@/components/shared/empty-state";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import type { DashboardStats } from "@/features/dashboard/types/dashboard-stats";
 
 type DashboardSummaryProps = {
@@ -66,16 +62,11 @@ export function DashboardSummary({ stats }: DashboardSummaryProps) {
       </section>
 
       {!hasTasks ? (
-        <Card>
-          <CardHeader>
-            <h3 className="text-xl font-semibold tracking-normal">
-              Todavía no hay tareas
-            </h3>
-            <CardDescription>
-              Cuando tengas tareas registradas, el resumen aparecerá aquí.
-            </CardDescription>
-          </CardHeader>
-        </Card>
+        <EmptyState
+          icon={ClipboardList}
+          title="Todavía no hay tareas"
+          description="Cuando tengas tareas registradas, el resumen aparecerá aquí."
+        />
       ) : null}
     </div>
   );

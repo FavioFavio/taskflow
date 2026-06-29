@@ -1,10 +1,11 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { RotateCcw, Search } from "lucide-react";
+import { ClipboardList, RotateCcw, Search, SearchX } from "lucide-react";
 
+import { EmptyState } from "@/components/shared/empty-state";
 import { Button } from "@/components/ui/button";
-import { Card, CardDescription, CardHeader } from "@/components/ui/card";
+import { Card, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
@@ -47,16 +48,11 @@ export function TaskList({ tasks }: TaskListProps) {
 
   if (tasks.length === 0) {
     return (
-      <Card>
-        <CardHeader>
-          <h3 className="text-xl font-semibold tracking-normal">
-            Todavía no hay tareas
-          </h3>
-          <CardDescription>
-            Creá tu primera tarea para empezar a organizar tu trabajo.
-          </CardDescription>
-        </CardHeader>
-      </Card>
+      <EmptyState
+        icon={ClipboardList}
+        title="Todavía no hay tareas"
+        description="Creá tu primera tarea para empezar a organizar tu trabajo."
+      />
     );
   }
 
@@ -80,6 +76,7 @@ export function TaskList({ tasks }: TaskListProps) {
                   onChange={(event) =>
                     updateFilter("search", event.target.value)
                   }
+                  aria-label="Buscar tareas por título"
                 />
               </div>
             </div>
@@ -139,18 +136,24 @@ export function TaskList({ tasks }: TaskListProps) {
       </Card>
 
       {filteredTasks.length === 0 ? (
-        <Card>
-          <CardHeader>
-            <h3 className="text-xl font-semibold tracking-normal">
-              No encontramos tareas
-            </h3>
-            <CardDescription>
-              Probá ajustar la búsqueda o limpiar los filtros.
-            </CardDescription>
-          </CardHeader>
-        </Card>
+        <EmptyState
+          icon={SearchX}
+          title="No encontramos tareas"
+          description="Probá ajustar la búsqueda o limpiar los filtros."
+          action={
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full sm:w-auto"
+              onClick={() => setFilters(DEFAULT_TASK_FILTERS)}
+            >
+              <RotateCcw className="size-4" aria-hidden="true" />
+              Limpiar filtros
+            </Button>
+          }
+        />
       ) : (
-        <div className="grid gap-4">
+        <div className="grid gap-4" aria-live="polite">
           {filteredTasks.map((task) => (
             <TaskCard key={task.id} task={task} />
           ))}

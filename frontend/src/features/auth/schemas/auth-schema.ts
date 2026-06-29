@@ -1,18 +1,18 @@
 import { z } from "zod";
 
 export const loginSchema = z.object({
-  email: z.email("Ingresa un email valido."),
-  password: z.string().min(1, "Ingresa tu contrasena."),
+  email: z.email("Ingresá un correo electrónico válido."),
+  password: z.string().min(1, "Ingresá tu contraseña."),
 });
 
 export const registerSchema = z.object({
-  email: z.email("Ingresa un email valido."),
+  email: z.email("Ingresá un correo electrónico válido."),
   password: z
     .string()
-    .min(8, "La contrasena debe tener al menos 8 caracteres.")
-    .regex(/[A-Z]/, "Inclui al menos una mayuscula.")
-    .regex(/[a-z]/, "Inclui al menos una minuscula.")
-    .regex(/[0-9]/, "Inclui al menos un numero."),
+    .min(8, "La contraseña debe tener al menos 8 caracteres.")
+    .regex(/[A-Z]/, "Incluí al menos una mayúscula.")
+    .regex(/[a-z]/, "Incluí al menos una minúscula.")
+    .regex(/[0-9]/, "Incluí al menos un número."),
 });
 
 export type LoginValues = z.infer<typeof loginSchema>;
