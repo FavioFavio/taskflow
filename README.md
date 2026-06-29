@@ -2,17 +2,7 @@
 
 TaskFlow es una aplicación web de gestión personal de tareas. El proyecto está organizado como un monorepo npm con una aplicación frontend en Next.js.
 
-La carpeta `backend/` existe, pero está reservada para un backend futuro. En el estado actual del proyecto, la lógica server-side vive en Next.js y Supabase.
-
-## Capturas de pantalla
-
-Las capturas todavía no están incluidas en el repositorio. Rutas previstas:
-
-- Login: `docs/screenshots/login.png`
-- Dashboard: `docs/screenshots/dashboard.png`
-- Tareas: `docs/screenshots/tasks.png`
-- Configuración: `docs/screenshots/settings.png`
-- Mobile: `docs/screenshots/mobile.png`
+La carpeta `backend/` existe, pero está reservada para posibles implementaciones futuras. En el estado actual del proyecto, la lógica server-side vive en Next.js y Supabase.
 
 ## Tecnologías utilizadas
 
@@ -35,7 +25,7 @@ Las capturas todavía no están incluidas en el repositorio. Rutas previstas:
 ```text
 taskflow/
   frontend/   Aplicación Next.js
-  backend/    Reservado para un backend futuro
+  backend/    Reservado para posibles implementaciones futuras
   docs/       Documentación del proyecto
 ```
 
@@ -172,22 +162,6 @@ npm run typecheck
 npm run build
 ```
 
-## Deploy
-
-Destino de despliegue previsto: Vercel.
-
-Pasos generales:
-
-1. Importar el repositorio en Vercel.
-2. Configurar `Root Directory` como `frontend`.
-3. Configurar las variables de entorno:
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-4. Ejecutar el deploy.
-5. Probar autenticación, CRUD de tareas, políticas RLS y responsive.
-
-No hay una URL de producción documentada en el repositorio.
-
 ## Checklist de validación
 
 - Instalar dependencias con `npm install`.
@@ -205,23 +179,3 @@ No hay una URL de producción documentada en el repositorio.
 - Probar settings.
 - Probar dark mode.
 - Probar responsive en desktop y mobile.
-
-## Mejoras futuras
-
-Mejoras mencionadas o pendientes de documentación:
-
-- Tags.
-- Categorías.
-- Adjuntos.
-- Comentarios.
-- Notificaciones.
-- Backend dedicado si el proyecto necesita una API independiente, procesos en segundo plano o integraciones privadas.
-
-## Alcance actual / limitaciones conocidas
-
-- No se encontró `vercel.json`.
-- Falta documentar el schema SQL real de Supabase.
-- Falta documentar las políticas RLS reales.
-- Falta completar la URL de producción.
-- El dashboard no implementa “due today”.
-- El dashboard no implementa tareas recientes.
