@@ -44,4 +44,14 @@ describe("TaskCard", () => {
 
     expect(screen.queryByText(/Completada el/)).not.toBeInTheDocument();
   });
+
+  it.each([
+    ["Low", "Prioridad baja"],
+    ["Medium", "Prioridad media"],
+    ["High", "Prioridad alta"],
+  ] as const)("shows the %s priority label", (priority, label) => {
+    render(<TaskCard task={{ ...completedTask, priority }} />);
+
+    expect(screen.getByText(label)).toBeInTheDocument();
+  });
 });

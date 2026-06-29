@@ -58,7 +58,7 @@ export function TaskList({ tasks }: TaskListProps) {
 
   return (
     <div className="space-y-4">
-      <Card>
+      <Card className="border-primary/20 bg-[linear-gradient(135deg,var(--card)_0%,color-mix(in_oklch,var(--primary),transparent_94%)_48%,color-mix(in_oklch,var(--accent),transparent_45%)_100%)]">
         <CardHeader className="gap-4">
           <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_180px_180px_auto]">
             <div className="space-y-2">
@@ -70,7 +70,7 @@ export function TaskList({ tasks }: TaskListProps) {
                 />
                 <Input
                   id="task-search"
-                  className="pl-9"
+                  className="bg-background/70 pl-9"
                   placeholder="Buscar por título"
                   value={filters.search}
                   onChange={(event) =>
@@ -85,6 +85,7 @@ export function TaskList({ tasks }: TaskListProps) {
               <Label htmlFor="task-status-filter">Estado</Label>
               <Select
                 id="task-status-filter"
+                className="bg-background/70"
                 value={filters.status}
                 onChange={(event) => {
                   if (isTaskStatusFilter(event.target.value)) {
@@ -104,6 +105,7 @@ export function TaskList({ tasks }: TaskListProps) {
               <Label htmlFor="task-priority-filter">Prioridad</Label>
               <Select
                 id="task-priority-filter"
+                className="bg-background/70"
                 value={filters.priority}
                 onChange={(event) => {
                   if (isTaskPriorityFilter(event.target.value)) {
