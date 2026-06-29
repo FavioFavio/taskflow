@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Suspense } from "react";
+
+import { RedirectToast } from "@/components/shared/redirect-toast";
+import { ToastProvider } from "@/components/ui/toast";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,7 +18,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "TaskFlow",
-  description: "Task management for focused teams.",
+  description: "Gestión de tareas para equipos enfocados.",
 };
 
 export default function RootLayout({
@@ -27,7 +31,14 @@ export default function RootLayout({
       lang="es"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        <ToastProvider>
+          <Suspense fallback={null}>
+            <RedirectToast />
+          </Suspense>
+          {children}
+        </ToastProvider>
+      </body>
     </html>
   );
 }

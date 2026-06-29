@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 
+import { FeedbackMessage } from "@/components/shared/feedback-message";
 import { DashboardSummary } from "@/features/dashboard/components/dashboard-summary";
 import { getDashboardStats } from "@/features/dashboard/services/dashboard-service";
 import { createClient } from "@/lib/supabase/server";
@@ -18,7 +19,15 @@ export default async function DashboardPage() {
     redirect("/login");
   }
 
-  const stats = await getDashboardStats(supabase, user.id);
+  const statsResult = await getDashboardStats(supabase, user.id)
+    .then((stats) => ({ stats, error: null }))
+    .catch((error: unknown) => ({
+      stats: null,
+      error:
+        error instanceof Error
+          ? error.message
+          : "No pudimos cargar el resumen de tareas.",
+    }));
 
   return (
     <section className="space-y-6">
@@ -28,7 +37,11 @@ export default async function DashboardPage() {
           Resumen de tus tareas personales.
         </p>
       </div>
-      <DashboardSummary stats={stats} />
+      {statsResult.stats ? (
+        <DashboardSummary stats={statsResult.stats} />
+      ) : (
+        <FeedbackMessage tone="error">{statsResult.error}</FeedbackMessage>
+      )}
     </section>
   );
 }

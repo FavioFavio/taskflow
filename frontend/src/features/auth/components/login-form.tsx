@@ -44,7 +44,7 @@ export function LoginForm({ nextPath }: LoginFormProps) {
     <form className="space-y-5" onSubmit={handleSubmit(onSubmit)} noValidate>
       <AuthFormField
         id="email"
-        label="Email"
+        label="Correo electrónico"
         type="email"
         autoComplete="email"
         error={errors.email?.message}
@@ -52,7 +52,7 @@ export function LoginForm({ nextPath }: LoginFormProps) {
       />
       <AuthFormField
         id="password"
-        label="Contrasena"
+        label="Contraseña"
         type="password"
         autoComplete="current-password"
         error={errors.password?.message}
@@ -60,10 +60,10 @@ export function LoginForm({ nextPath }: LoginFormProps) {
       />
       {formError ? <AuthFeedback tone="error">{formError}</AuthFeedback> : null}
       <Button type="submit" className="h-10 w-full" disabled={isPending}>
-        {isPending ? "Ingresando..." : "Ingresar"}
+        {isPending ? "Iniciando sesión..." : "Iniciar sesión"}
       </Button>
       <p className="text-muted-foreground text-center text-sm">
-        No tenes cuenta?{" "}
+        ¿No tenés cuenta?{" "}
         <Link
           className="text-foreground font-medium underline"
           href="/register"

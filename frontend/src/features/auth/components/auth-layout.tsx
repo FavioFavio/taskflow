@@ -11,11 +11,11 @@ export function AuthLayout({ children }: AuthLayoutProps) {
             TaskFlow
           </p>
           <h1 className="max-w-xl text-4xl leading-tight font-semibold tracking-normal">
-            Gestiona tu trabajo con una sesion segura y persistente.
+            Gestioná tu trabajo con una sesión segura y persistente.
           </h1>
           <p className="text-muted-foreground mt-4 max-w-lg text-base leading-7">
-            Accede a tu espacio personal para organizar tareas, prioridades y
-            vencimientos cuando termine el flujo de autenticacion.
+            Accedé a tu espacio personal para organizar tareas y prioridades
+            desde cualquier dispositivo.
           </p>
         </section>
         {children}

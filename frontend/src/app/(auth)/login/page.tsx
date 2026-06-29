@@ -2,7 +2,7 @@ import { AuthCard } from "@/features/auth/components/auth-card";
 import { LoginForm } from "@/features/auth/components/login-form";
 
 export const metadata = {
-  title: "Ingresar | TaskFlow",
+  title: "Iniciar sesión | TaskFlow",
 };
 
 type LoginPageProps = {
@@ -16,8 +16,8 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
 
   return (
     <AuthCard
-      title="Ingresar"
-      description="Usa tu cuenta para volver a tu espacio de trabajo."
+      title="Iniciar sesión"
+      description="Usá tu cuenta para volver a tu espacio de trabajo."
     >
       <LoginForm nextPath={next} />
     </AuthCard>

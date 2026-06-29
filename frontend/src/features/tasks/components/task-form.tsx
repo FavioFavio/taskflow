@@ -3,12 +3,15 @@
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
 
+import { FeedbackMessage } from "@/components/shared/feedback-message";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/toast";
 import {
   createTaskAction,
   updateTaskAction,
@@ -45,6 +48,7 @@ function getDefaultValues(task?: Task): TaskFormValues {
 export function TaskForm({ mode, onSuccess, task }: TaskFormProps) {
   const [formError, setFormError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const { showToast } = useToast();
   const {
     register,
     handleSubmit,
@@ -69,6 +73,9 @@ export function TaskForm({ mode, onSuccess, task }: TaskFormProps) {
       }
 
       reset(getDefaultValues(task));
+      showToast({
+        message: result.success ?? "Tarea guardada correctamente.",
+      });
       onSuccess?.();
     });
   }
@@ -79,6 +86,8 @@ export function TaskForm({ mode, onSuccess, task }: TaskFormProps) {
         <Label htmlFor={`${mode}-task-title`}>Título</Label>
         <Input
           id={`${mode}-task-title`}
+          autoFocus
+          placeholder="Ejemplo: Revisar propuesta"
           aria-invalid={Boolean(errors.title)}
           aria-describedby={
             errors.title ? `${mode}-task-title-error` : undefined
@@ -100,6 +109,7 @@ export function TaskForm({ mode, onSuccess, task }: TaskFormProps) {
         <Label htmlFor={`${mode}-task-description`}>Descripción</Label>
         <Textarea
           id={`${mode}-task-description`}
+          placeholder="Agregá detalles opcionales"
           aria-invalid={Boolean(errors.description)}
           {...register("description")}
         />
@@ -138,17 +148,19 @@ export function TaskForm({ mode, onSuccess, task }: TaskFormProps) {
       </div>
 
       {formError ? (
-        <p
-          className="text-destructive border-destructive/30 bg-destructive/10 rounded-md border px-3 py-2 text-sm"
-          role="alert"
-        >
-          {formError}
-        </p>
+        <FeedbackMessage tone="error">{formError}</FeedbackMessage>
       ) : null}
 
       <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
         <Button type="submit" disabled={isPending}>
-          {isPending ? "Guardando..." : "Guardar"}
+          {isPending ? (
+            <>
+              <Loader2 className="size-4 animate-spin" aria-hidden="true" />
+              Guardando...
+            </>
+          ) : (
+            "Guardar"
+          )}
         </Button>
       </div>
     </form>

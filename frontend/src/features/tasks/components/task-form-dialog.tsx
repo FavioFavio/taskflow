@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Plus } from "lucide-react";
+import { Pencil, Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -27,7 +27,11 @@ export function TaskFormDialog({ task }: TaskFormDialogProps) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button type="button" variant={isEditing ? "outline" : "default"}>
-          {isEditing ? null : <Plus className="size-4" aria-hidden="true" />}
+          {isEditing ? (
+            <Pencil className="size-4" aria-hidden="true" />
+          ) : (
+            <Plus className="size-4" aria-hidden="true" />
+          )}
           {isEditing ? "Editar" : "Nueva tarea"}
         </Button>
       </DialogTrigger>

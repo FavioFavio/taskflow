@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 
+import { FeedbackMessage } from "@/components/shared/feedback-message";
 import { TaskFormDialog } from "@/features/tasks/components/task-form-dialog";
 import { TaskList } from "@/features/tasks/components/task-list";
 import { listUserTasks } from "@/features/tasks/services/task-service";
@@ -42,12 +43,7 @@ export default async function TasksPage() {
       </div>
 
       {tasksResult.error ? (
-        <p
-          className="text-destructive border-destructive/30 bg-destructive/10 rounded-md border px-3 py-2 text-sm"
-          role="alert"
-        >
-          {tasksResult.error}
-        </p>
+        <FeedbackMessage tone="error">{tasksResult.error}</FeedbackMessage>
       ) : (
         <TaskList tasks={tasksResult.tasks} />
       )}

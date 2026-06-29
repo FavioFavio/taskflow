@@ -12,7 +12,7 @@ export type AuthActionState = {
 };
 
 const DEFAULT_AUTH_ERROR =
-  "No pudimos completar la autenticacion. Revisa los datos e intenta otra vez.";
+  "No pudimos completar la autenticación. Revisá los datos e intentá otra vez.";
 
 const loginActionSchema = loginSchema.extend({
   next: z.string().optional(),
@@ -30,7 +30,7 @@ export async function loginAction(values: unknown): Promise<AuthActionState> {
   const parsedValues = loginActionSchema.safeParse(values);
 
   if (!parsedValues.success) {
-    return { error: "Revisa el email y la contrasena." };
+    return { error: "Revisá el correo electrónico y la contraseña." };
   }
 
   const { email, password, next } = parsedValues.data;
@@ -42,12 +42,12 @@ export async function loginAction(values: unknown): Promise<AuthActionState> {
       error:
         error.message.toLowerCase().includes("invalid") ||
         error.message.toLowerCase().includes("credentials")
-          ? "El email o la contrasena no son correctos."
+          ? "El correo electrónico o la contraseña no son correctos."
           : DEFAULT_AUTH_ERROR,
     };
   }
 
-  redirect(getSafeRedirectPath(next));
+  redirect(`${getSafeRedirectPath(next)}?toast=login`);
 }
 
 export async function registerAction(
@@ -56,7 +56,7 @@ export async function registerAction(
   const parsedValues = registerSchema.safeParse(values);
 
   if (!parsedValues.success) {
-    return { error: "Revisa el email y la contrasena." };
+    return { error: "Revisá el correo electrónico y la contraseña." };
   }
 
   const supabase = await createClient();
@@ -65,7 +65,7 @@ export async function registerAction(
   if (error) {
     return {
       error: error.message.toLowerCase().includes("already")
-        ? "Ya existe una cuenta con ese email."
+        ? "Ya existe una cuenta con ese correo electrónico."
         : DEFAULT_AUTH_ERROR,
     };
   }
@@ -76,12 +76,12 @@ export async function registerAction(
 
   return {
     message:
-      "Cuenta creada. Revisa tu email para confirmar el registro antes de iniciar sesion.",
+      "Cuenta creada. Revisá tu correo electrónico para confirmar el registro antes de iniciar sesión.",
   };
 }
 
 export async function logoutAction() {
   const supabase = await createClient();
   await supabase.auth.signOut();
-  redirect("/login");
+  redirect("/login?toast=logout");
 }

@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { CheckCircle2, Circle } from "lucide-react";
+import { CheckCircle2, Circle, Loader2 } from "lucide-react";
 
+import { FeedbackMessage } from "@/components/shared/feedback-message";
 import { Button } from "@/components/ui/button";
 import { toggleTaskStatusAction } from "@/features/tasks/actions/task-actions";
 import type { TaskStatus } from "@/features/tasks/types/task";
@@ -38,19 +39,24 @@ export function TaskStatusToggle({ status, taskId }: TaskStatusToggleProps) {
         variant={isCompleted ? "secondary" : "outline"}
         onClick={onToggle}
         disabled={isPending}
+        aria-label={
+          isCompleted ? "Marcar tarea como pendiente" : "Completar tarea"
+        }
       >
-        {isCompleted ? (
+        {isPending ? (
+          <Loader2 className="size-4 animate-spin" aria-hidden="true" />
+        ) : isCompleted ? (
           <CheckCircle2 className="size-4" aria-hidden="true" />
         ) : (
           <Circle className="size-4" aria-hidden="true" />
         )}
-        {isCompleted ? "Marcar pendiente" : "Completar"}
+        {isPending
+          ? "Actualizando..."
+          : isCompleted
+            ? "Marcar pendiente"
+            : "Completar"}
       </Button>
-      {error ? (
-        <p className="text-destructive text-sm" role="alert">
-          {error}
-        </p>
-      ) : null}
+      {error ? <FeedbackMessage tone="error">{error}</FeedbackMessage> : null}
     </div>
   );
 }
