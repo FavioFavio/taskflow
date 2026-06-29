@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { Menu } from "lucide-react";
+import { ClipboardCheck, Menu } from "lucide-react";
 
 import { AppNavigationLinks } from "@/components/layout/app-navigation-links";
 import { Button } from "@/components/ui/button";
@@ -37,7 +37,12 @@ export function MobileSidebar() {
       </SheetTrigger>
       <SheetContent side="left" className="w-72">
         <div className="border-border border-b px-5 py-4">
-          <SheetTitle>Navegación</SheetTitle>
+          <SheetTitle className="flex items-center gap-2">
+            <span className="bg-primary text-primary-foreground flex size-8 items-center justify-center rounded-md">
+              <ClipboardCheck className="size-4" aria-hidden="true" />
+            </span>
+            Navegación
+          </SheetTitle>
         </div>
         <nav className="space-y-1 p-3" aria-label="Navegación móvil">
           <AppNavigationLinks

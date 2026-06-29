@@ -1,5 +1,12 @@
 import { redirect } from "next/navigation";
-import { CalendarDays, LogOut, Mail, ShieldCheck } from "lucide-react";
+import {
+  CalendarDays,
+  Globe2,
+  LogOut,
+  Mail,
+  Palette,
+  ShieldCheck,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -54,7 +61,7 @@ export default async function SettingsPage() {
 
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">
         <div className="space-y-6">
-          <Card>
+          <Card className="border-primary/10">
             <CardHeader>
               <h3 className="text-lg font-semibold tracking-normal">Cuenta</h3>
               <CardDescription>
@@ -63,18 +70,21 @@ export default async function SettingsPage() {
             </CardHeader>
             <CardContent className="space-y-5">
               <dl className="grid gap-4 sm:grid-cols-2">
-                <div className="rounded-md border p-4">
+                <div className="bg-background/60 rounded-md border p-4">
                   <dt className="text-muted-foreground flex items-center gap-2 text-sm">
-                    <Mail className="size-4" aria-hidden="true" />
+                    <Mail className="text-primary size-4" aria-hidden="true" />
                     Correo electrónico
                   </dt>
                   <dd className="mt-2 text-sm font-medium break-words">
                     {user.email ?? "No disponible"}
                   </dd>
                 </div>
-                <div className="rounded-md border p-4">
+                <div className="bg-background/60 rounded-md border p-4">
                   <dt className="text-muted-foreground flex items-center gap-2 text-sm">
-                    <CalendarDays className="size-4" aria-hidden="true" />
+                    <CalendarDays
+                      className="text-primary size-4"
+                      aria-hidden="true"
+                    />
                     Cuenta creada
                   </dt>
                   <dd className="mt-2 text-sm font-medium">
@@ -92,9 +102,10 @@ export default async function SettingsPage() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="border-primary/10">
             <CardHeader>
-              <h3 className="text-lg font-semibold tracking-normal">
+              <h3 className="flex items-center gap-2 text-lg font-semibold tracking-normal">
+                <Palette className="text-primary size-5" aria-hidden="true" />
                 Apariencia
               </h3>
               <CardDescription>
@@ -106,9 +117,10 @@ export default async function SettingsPage() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="border-primary/10">
             <CardHeader>
-              <h3 className="text-lg font-semibold tracking-normal">
+              <h3 className="flex items-center gap-2 text-lg font-semibold tracking-normal">
+                <Globe2 className="text-primary size-5" aria-hidden="true" />
                 Aplicación
               </h3>
               <CardDescription>
@@ -127,10 +139,10 @@ export default async function SettingsPage() {
           </Card>
         </div>
 
-        <Card className="h-fit">
+        <Card className="border-primary/10 bg-accent/30 h-fit">
           <CardHeader>
             <h3 className="flex items-center gap-2 text-lg font-semibold tracking-normal">
-              <ShieldCheck className="size-5" aria-hidden="true" />
+              <ShieldCheck className="text-primary size-5" aria-hidden="true" />
               Seguridad
             </h3>
             <CardDescription>
