@@ -1,4 +1,4 @@
-import { CheckCircle2, CircleDashed, ClipboardList } from "lucide-react";
+import { CheckCircle2, CircleDashed, ClipboardList, Timer } from "lucide-react";
 
 import { EmptyState } from "@/components/shared/empty-state";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -20,6 +20,11 @@ const SUMMARY_ITEMS = [
     icon: CircleDashed,
   },
   {
+    label: "Tareas en proceso",
+    valueKey: "inProgressTasks",
+    icon: Timer,
+  },
+  {
     label: "Tareas completadas",
     valueKey: "completedTasks",
     icon: CheckCircle2,
@@ -35,7 +40,7 @@ export function DashboardSummary({ stats }: DashboardSummaryProps) {
         <h3 id="dashboard-summary-title" className="sr-only">
           Resumen de tareas
         </h3>
-        <dl className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        <dl className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {SUMMARY_ITEMS.map((item) => {
             const Icon = item.icon;
 

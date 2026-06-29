@@ -5,7 +5,12 @@ import {
 } from "@/features/tasks/types/task";
 import { TASK_PRIORITY_LABELS } from "@/features/tasks/utils/task-labels";
 
-export const TASK_STATUS_FILTERS = ["all", "pending", "completed"] as const;
+export const TASK_STATUS_FILTERS = [
+  "all",
+  "pending",
+  "in_progress",
+  "completed",
+] as const;
 export type TaskStatusFilter = (typeof TASK_STATUS_FILTERS)[number];
 
 export type TaskPriorityFilter = TaskPriority | "all";
@@ -26,6 +31,7 @@ export const DEFAULT_TASK_FILTERS: TaskFilters = {
 export const TASK_STATUS_FILTER_LABELS: Record<TaskStatusFilter, string> = {
   all: "Todas",
   pending: "Pendientes",
+  in_progress: "En proceso",
   completed: "Completadas",
 };
 
@@ -54,7 +60,8 @@ export function filterTasks(tasks: Task[], filters: TaskFilters) {
     const matchesStatus =
       filters.status === "all" ||
       (filters.status === "completed" && task.status === "Done") ||
-      (filters.status === "pending" && task.status !== "Done");
+      (filters.status === "in_progress" && task.status === "In Progress") ||
+      (filters.status === "pending" && task.status === "Todo");
     const matchesPriority =
       filters.priority === "all" || task.priority === filters.priority;
 

@@ -61,7 +61,13 @@ describe("task filters", () => {
   it("filters pending tasks", () => {
     expect(
       filterTasks(tasks, { ...DEFAULT_TASK_FILTERS, status: "pending" }),
-    ).toEqual([tasks[0], tasks[1]]);
+    ).toEqual([tasks[0]]);
+  });
+
+  it("filters tasks in progress", () => {
+    expect(
+      filterTasks(tasks, { ...DEFAULT_TASK_FILTERS, status: "in_progress" }),
+    ).toEqual([tasks[1]]);
   });
 
   it("filters completed tasks", () => {
@@ -89,6 +95,7 @@ describe("task filters", () => {
 
   it("validates filter values", () => {
     expect(isTaskStatusFilter("completed")).toBe(true);
+    expect(isTaskStatusFilter("in_progress")).toBe(true);
     expect(isTaskStatusFilter("archived")).toBe(false);
     expect(isTaskPriorityFilter("High")).toBe(true);
     expect(isTaskPriorityFilter("Urgent")).toBe(false);

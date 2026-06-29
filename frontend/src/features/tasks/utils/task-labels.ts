@@ -8,6 +8,6 @@ export const TASK_PRIORITY_LABELS: Record<TaskPriority, string> = {
 
 export const TASK_STATUS_LABELS: Record<TaskStatus, string> = {
   Todo: "Pendiente",
-  "In Progress": "En progreso",
+  "In Progress": "En proceso",
   Done: "Completada",
 };
