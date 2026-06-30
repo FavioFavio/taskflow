@@ -26,5 +26,9 @@ export const toggleTaskStatusSchema = taskIdSchema.extend({
   currentStatus: z.enum(TASK_STATUSES),
 });
 
+export const updateTaskStatusSchema = taskIdSchema.extend({
+  status: z.enum(TASK_STATUSES),
+});
+
 export type TaskFormValues = z.infer<typeof taskFormSchema>;
 export type UpdateTaskValues = z.infer<typeof updateTaskSchema>;

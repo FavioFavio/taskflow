@@ -12,6 +12,7 @@ import {
   createTaskAction,
   deleteTaskAction,
   toggleTaskStatusAction,
+  updateTaskStatusAction,
   updateTaskAction,
 } from "@/features/tasks/actions/task-actions";
 
@@ -68,6 +69,7 @@ describe("task actions", () => {
       status: "Todo",
     });
     expect(revalidatePath).toHaveBeenCalledWith("/tasks");
+    expect(revalidatePath).toHaveBeenCalledWith("/board");
   });
 
   it("does not create a task when validation fails", async () => {
@@ -139,6 +141,36 @@ describe("task actions", () => {
       "task-1",
       "Todo",
     );
+  });
+
+  it("updates a task status directly for board moves", async () => {
+    vi.mocked(updateUserTaskStatus).mockResolvedValue(undefined);
+
+    const result = await updateTaskStatusAction({
+      id: "task-1",
+      status: "In Progress",
+    });
+
+    expect(result).toEqual({ success: "Estado actualizado." });
+    expect(updateUserTaskStatus).toHaveBeenCalledWith(
+      supabaseMock,
+      "user-1",
+      "task-1",
+      "In Progress",
+    );
+    expect(revalidatePath).toHaveBeenCalledWith("/tasks");
+    expect(revalidatePath).toHaveBeenCalledWith("/board");
+  });
+
+  it("does not update a task status when validation fails", async () => {
+    const result = await updateTaskStatusAction({
+      id: "task-1",
+      status: "Archived",
+    });
+
+    expect(result).toEqual({ error: "La tarea no es válida." });
+    expect(updateUserTaskStatus).not.toHaveBeenCalled();
+    expect(revalidatePath).not.toHaveBeenCalled();
   });
 
   it("returns service errors without revalidating", async () => {

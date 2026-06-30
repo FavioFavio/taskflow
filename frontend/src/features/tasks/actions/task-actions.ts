@@ -13,6 +13,7 @@ import {
   taskFormSchema,
   taskIdSchema,
   toggleTaskStatusSchema,
+  updateTaskStatusSchema,
   updateTaskSchema,
 } from "@/features/tasks/schemas/task-schema";
 
@@ -22,6 +23,7 @@ export type TaskActionState = {
 };
 
 const TASKS_PATH = "/tasks";
+const BOARD_PATH = "/board";
 
 type AuthenticatedTaskContext = {
   supabase: Awaited<ReturnType<typeof createClient>>;
@@ -55,6 +57,7 @@ async function runTaskMutation(
   try {
     await mutation(auth);
     revalidatePath(TASKS_PATH);
+    revalidatePath(BOARD_PATH);
 
     return { success };
   } catch (error) {
@@ -132,6 +135,28 @@ export async function toggleTaskStatusAction(
         auth.userId,
         parsedValues.data.id,
         nextStatus,
+      ),
+    "No pudimos cambiar el estado de la tarea.",
+    "Estado actualizado.",
+  );
+}
+
+export async function updateTaskStatusAction(
+  values: unknown,
+): Promise<TaskActionState> {
+  const parsedValues = updateTaskStatusSchema.safeParse(values);
+
+  if (!parsedValues.success) {
+    return { error: "La tarea no es válida." };
+  }
+
+  return runTaskMutation(
+    (auth) =>
+      updateUserTaskStatus(
+        auth.supabase,
+        auth.userId,
+        parsedValues.data.id,
+        parsedValues.data.status,
       ),
     "No pudimos cambiar el estado de la tarea.",
     "Estado actualizado.",

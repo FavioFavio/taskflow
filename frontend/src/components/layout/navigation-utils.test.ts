@@ -15,6 +15,7 @@ describe("navigation utils", () => {
   it("returns the Spanish title for the current route", () => {
     expect(getCurrentNavigationItem("/dashboard").title).toBe("Inicio");
     expect(getCurrentNavigationItem("/tasks").title).toBe("Tareas");
+    expect(getCurrentNavigationItem("/board").title).toBe("Tablero");
     expect(getCurrentNavigationItem("/settings").title).toBe("Configuración");
   });
 

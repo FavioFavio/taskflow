@@ -79,8 +79,6 @@ NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 ```
 
-No se deben commitear valores reales de variables de entorno.
-
 ## Instalación
 
 Desde la raíz del proyecto:
@@ -103,6 +101,12 @@ También se puede correr directamente desde el workspace frontend:
 cd frontend
 npm run dev
 ```
+
+## Deploy
+
+La aplicación está desplegada en Vercel:
+
+https://taskflow-omega-ebon.vercel.app/
 
 ## Scripts disponibles
 
@@ -161,12 +165,6 @@ npm run lint
 npm run typecheck
 npm run build
 ```
-
-## Deploy
-
-La aplicación está desplegada en Vercel:
-
-https://taskflow-omega-ebon.vercel.app/
 
 ## Checklist de validación
 

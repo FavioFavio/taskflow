@@ -1,4 +1,9 @@
-import { LayoutDashboard, Settings, SquareCheckBig } from "lucide-react";
+import {
+  Columns3,
+  LayoutDashboard,
+  Settings,
+  SquareCheckBig,
+} from "lucide-react";
 
 export const APP_NAVIGATION_ITEMS = [
   {
@@ -10,6 +15,11 @@ export const APP_NAVIGATION_ITEMS = [
     title: "Tareas",
     href: "/tasks",
     icon: SquareCheckBig,
+  },
+  {
+    title: "Tablero",
+    href: "/board",
+    icon: Columns3,
   },
   {
     title: "Configuración",
