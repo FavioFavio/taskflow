@@ -7,16 +7,25 @@ import { FeedbackMessage } from "@/components/shared/feedback-message";
 import { Button } from "@/components/ui/button";
 import { toggleTaskStatusAction } from "@/features/tasks/actions/task-actions";
 import type { TaskStatus } from "@/features/tasks/types/task";
+import { cn } from "@/lib/utils";
 
 type TaskStatusToggleProps = {
+  className?: string;
+  presentation?: "default" | "compact";
   status: TaskStatus;
   taskId: string;
 };
 
-export function TaskStatusToggle({ status, taskId }: TaskStatusToggleProps) {
+export function TaskStatusToggle({
+  className,
+  presentation = "default",
+  status,
+  taskId,
+}: TaskStatusToggleProps) {
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const isCompleted = status === "Done";
+  const isCompact = presentation === "compact";
 
   function onToggle() {
     setError(null);
@@ -33,10 +42,12 @@ export function TaskStatusToggle({ status, taskId }: TaskStatusToggleProps) {
   }
 
   return (
-    <div className="space-y-2">
+    <div className={cn("space-y-2", className)}>
       <Button
         type="button"
         variant={isCompleted ? "secondary" : "outline"}
+        size={isCompact ? "sm" : "default"}
+        className={cn(isCompact && "w-full justify-center")}
         onClick={onToggle}
         disabled={isPending}
         aria-label={
