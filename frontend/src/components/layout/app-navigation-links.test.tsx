@@ -35,6 +35,7 @@ describe("AppNavigationLinks", () => {
 
     expect(screen.getByRole("link", { name: "Inicio" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Tareas" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Tablero" })).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: "Configuración" }),
     ).toBeInTheDocument();
