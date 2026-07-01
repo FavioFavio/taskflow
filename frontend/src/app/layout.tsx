@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Nunito } from "next/font/google";
 import { Suspense } from "react";
 
 import { RedirectToast } from "@/components/shared/redirect-toast";
@@ -7,9 +7,10 @@ import { ThemeScript } from "@/components/shared/theme-script";
 import { ToastProvider } from "@/components/ui/toast";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const nunito = Nunito({
+  variable: "--font-nunito",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
@@ -31,12 +32,12 @@ export default function RootLayout({
     <html
       lang="es"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${nunito.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
         <ThemeScript />
       </head>
-      <body className="flex min-h-full flex-col">
+      <body className={`${nunito.className} flex min-h-full flex-col`}>
         <ToastProvider>
           <Suspense fallback={null}>
             <RedirectToast />

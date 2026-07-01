@@ -33,6 +33,7 @@ function formatAccountDate(value?: string) {
 
   return new Intl.DateTimeFormat("es", {
     dateStyle: "long",
+    timeZone: "America/Buenos_Aires",
   }).format(new Date(value));
 }
 

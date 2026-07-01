@@ -73,6 +73,26 @@ describe("TaskBoard", () => {
     expect(screen.getByText(/Completada el/)).toBeInTheDocument();
   });
 
+  function renderVersionedBoard(currentTasks: Task[]) {
+    return (
+      <TaskBoard
+        key={currentTasks.map((task) => `${task.id}:${task.status}`).join("|")}
+        tasks={currentTasks}
+      />
+    );
+  }
+
+  it("renders refreshed cards when board data is remounted with a new version", () => {
+    const { rerender } = render(renderVersionedBoard(tasks.slice(0, 1)));
+
+    expect(screen.getByText("Preparar entrega")).toBeInTheDocument();
+    expect(screen.queryByText("Revisar diseño")).not.toBeInTheDocument();
+
+    rerender(renderVersionedBoard(tasks.slice(0, 2)));
+
+    expect(screen.getByText("Revisar diseño")).toBeInTheDocument();
+  });
+
   it("makes compact task cards draggable", () => {
     render(<TaskBoard tasks={tasks} />);
 
