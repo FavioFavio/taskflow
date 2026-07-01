@@ -3,11 +3,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 export default function SettingsLoading() {
   return (
     <section className="space-y-6" aria-label="Cargando configuración">
-      <div className="space-y-2">
-        <Skeleton className="h-8 w-40" />
-        <Skeleton className="h-4 w-72 max-w-full" />
-      </div>
-
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">
         <div className="space-y-6">
           <div className="rounded-lg border p-6">
