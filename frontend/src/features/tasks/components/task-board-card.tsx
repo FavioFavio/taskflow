@@ -34,6 +34,7 @@ function getShortDescription(description: string | null) {
 function formatCompletedAt(value: string) {
   return new Intl.DateTimeFormat("es", {
     dateStyle: "medium",
+    timeZone: "America/Buenos_Aires",
     timeStyle: "short",
   }).format(new Date(value));
 }

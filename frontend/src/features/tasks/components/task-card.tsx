@@ -17,6 +17,7 @@ type TaskCardProps = {
 function formatCompletedAt(value: string) {
   return new Intl.DateTimeFormat("es", {
     dateStyle: "long",
+    timeZone: "America/Buenos_Aires",
     timeStyle: "short",
   }).format(new Date(value));
 }

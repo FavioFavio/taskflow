@@ -41,7 +41,7 @@ export function TaskFormDialog({
           size={isHeaderPresentation ? "lg" : "default"}
           className={cn(
             isHeaderPresentation &&
-              "border-primary bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground font-semibold shadow-md hover:shadow-lg",
+              "border-primary bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground font-normal shadow-md hover:shadow-lg",
             className,
           )}
           aria-label={triggerLabel}

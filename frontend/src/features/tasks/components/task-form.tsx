@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
@@ -50,6 +51,7 @@ export function TaskForm({ mode, onSuccess, task }: TaskFormProps) {
   const [formError, setFormError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const { showToast } = useToast();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -81,6 +83,7 @@ export function TaskForm({ mode, onSuccess, task }: TaskFormProps) {
       showToast({
         message: result.success ?? "Tarea guardada correctamente.",
       });
+      router.refresh();
       onSuccess?.();
     });
   }
