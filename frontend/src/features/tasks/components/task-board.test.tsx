@@ -50,6 +50,9 @@ describe("TaskBoard", () => {
     render(<TaskBoard tasks={tasks} />);
 
     expect(
+      screen.getByRole("region", { name: "Columnas del tablero" }),
+    ).toBeInTheDocument();
+    expect(
       screen.getByRole("heading", { name: "Pendientes" }),
     ).toBeInTheDocument();
     expect(

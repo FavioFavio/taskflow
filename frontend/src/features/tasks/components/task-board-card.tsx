@@ -105,7 +105,7 @@ export function TaskBoardCard({ task }: TaskBoardCardProps) {
       style={style}
       aria-label={`Mover tarea ${task.title}`}
       className={cn(
-        "cursor-grab active:cursor-grabbing",
+        "cursor-grab touch-none active:cursor-grabbing",
         isDragging && "opacity-70 shadow-lg",
       )}
       task={task}

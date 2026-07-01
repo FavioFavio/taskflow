@@ -31,13 +31,6 @@ export default async function BoardPage() {
 
   return (
     <section className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-semibold tracking-normal">Tablero</h2>
-        <p className="text-muted-foreground mt-2 text-sm">
-          Visualizá tus tareas agrupadas por estado.
-        </p>
-      </div>
-
       {tasksResult.error ? (
         <FeedbackMessage tone="error">{tasksResult.error}</FeedbackMessage>
       ) : (

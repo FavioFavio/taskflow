@@ -6,6 +6,7 @@ import {
   DragOverlay,
   KeyboardSensor,
   PointerSensor,
+  TouchSensor,
   useSensor,
   useSensors,
   type DragEndEvent,
@@ -72,6 +73,12 @@ export function TaskBoard({ tasks }: TaskBoardProps) {
         distance: 8,
       },
     }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 180,
+        tolerance: 8,
+      },
+    }),
     useSensor(KeyboardSensor),
   );
 
@@ -135,18 +142,25 @@ export function TaskBoard({ tasks }: TaskBoardProps) {
         onDragEnd={onDragEnd}
         onDragStart={onDragStart}
       >
-        <div className="grid gap-4 md:grid-cols-3">
-          {columns.map((column) => (
-            <TaskBoardColumn
-              key={column.status}
-              accentClassName={COLUMN_CONFIG[column.status].accentClassName}
-              emptyDescription={COLUMN_CONFIG[column.status].emptyDescription}
-              icon={COLUMN_CONFIG[column.status].icon}
-              status={column.status}
-              tasks={column.tasks}
-              title={COLUMN_CONFIG[column.status].title}
-            />
-          ))}
+        <div
+          className="overflow-x-auto pb-2 md:overflow-visible"
+          role="region"
+          aria-label="Columnas del tablero"
+          tabIndex={0}
+        >
+          <div className="grid auto-cols-[minmax(18rem,1fr)] grid-flow-col gap-4 md:grid-flow-row md:grid-cols-3">
+            {columns.map((column) => (
+              <TaskBoardColumn
+                key={column.status}
+                accentClassName={COLUMN_CONFIG[column.status].accentClassName}
+                emptyDescription={COLUMN_CONFIG[column.status].emptyDescription}
+                icon={COLUMN_CONFIG[column.status].icon}
+                status={column.status}
+                tasks={column.tasks}
+                title={COLUMN_CONFIG[column.status].title}
+              />
+            ))}
+          </div>
         </div>
         <DragOverlay zIndex={50}>
           {activeTask ? (
