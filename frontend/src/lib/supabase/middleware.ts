@@ -2,7 +2,8 @@ import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
 
 const AUTH_ROUTES = ["/login", "/register"];
-const PROTECTED_ROUTES = ["/dashboard"];
+const AUTHENTICATED_HOME_PATH = "/board";
+const PROTECTED_ROUTES = ["/board", "/dashboard", "/settings", "/tasks"];
 
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({
@@ -53,7 +54,7 @@ export async function updateSession(request: NextRequest) {
 
   if (user && isAuthRoute) {
     const redirectUrl = request.nextUrl.clone();
-    redirectUrl.pathname = "/dashboard";
+    redirectUrl.pathname = AUTHENTICATED_HOME_PATH;
     redirectUrl.search = "";
     return NextResponse.redirect(redirectUrl);
   }

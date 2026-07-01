@@ -35,14 +35,13 @@ Estructura principal del frontend:
 frontend/src/
   app/          Rutas, layouts y páginas de Next.js App Router
   components/   Componentes UI, layout y componentes compartidos
-  features/     Módulos funcionales de auth, dashboard, settings y tasks
+  features/     Módulos funcionales de auth, settings y tasks
   lib/          Utilidades compartidas e integración con Supabase
 ```
 
 Módulos implementados en `features/`:
 
 - `auth`: registro, inicio de sesión, cierre de sesión, schemas y componentes.
-- `dashboard`: resumen de tareas.
 - `tasks`: CRUD, filtros, schemas, services, actions, types y componentes.
 - `settings`: preferencias de tema, idioma, cuenta y restablecimiento de contraseña.
 
@@ -50,7 +49,8 @@ Módulos implementados en `features/`:
 
 - Registro, login, logout y sesión persistente con Supabase.
 - Rutas protegidas.
-- Dashboard con total de tareas, tareas pendientes y tareas completadas.
+- Tablero principal con columnas por estado y drag and drop.
+- Resumen de métricas dentro de la vista de tareas.
 - CRUD de tareas.
 - Completar y reabrir tareas.
 - Filtros por búsqueda, estado y prioridad.
@@ -179,7 +179,7 @@ npm run build
 - Probar registro, login y logout.
 - Probar creación, edición, eliminación, completar y reabrir tareas.
 - Probar filtros por búsqueda, estado y prioridad.
-- Probar dashboard.
+- Probar tablero.
 - Probar settings.
 - Probar dark mode.
 - Probar responsive en desktop y mobile.
