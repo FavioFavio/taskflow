@@ -11,7 +11,7 @@ export const taskFormSchema = z.object({
   status: z.enum(TASK_STATUSES, {
     message: "Seleccioná un estado válido.",
   }),
-  completedAt: z.string().datetime().nullable().optional(),
+  completedAt: z.string().nullable().optional(),
 });
 
 export const taskIdSchema = z.object({

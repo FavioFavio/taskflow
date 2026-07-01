@@ -113,6 +113,34 @@ describe("task actions", () => {
     );
   });
 
+  it("updates completed tasks with the stored completion date", async () => {
+    vi.mocked(updateUserTask).mockResolvedValue(undefined);
+    const completedAt = "2026-06-29 12:30:00+00";
+
+    const result = await updateTaskAction({
+      id: "task-1",
+      title: "Tarea editada",
+      description: "Detalle",
+      priority: "High",
+      status: "Done",
+      completedAt,
+    });
+
+    expect(result).toEqual({ success: "Tarea actualizada." });
+    expect(updateUserTask).toHaveBeenCalledWith(
+      supabaseMock,
+      "user-1",
+      "task-1",
+      {
+        title: "Tarea editada",
+        description: "Detalle",
+        priority: "High",
+        status: "Done",
+        completedAt,
+      },
+    );
+  });
+
   it("deletes a task for the authenticated user", async () => {
     vi.mocked(deleteUserTask).mockResolvedValue(undefined);
 

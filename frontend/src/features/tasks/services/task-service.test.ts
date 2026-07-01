@@ -96,14 +96,14 @@ describe("task service", () => {
     } as unknown as SupabaseClient;
 
     await createUserTask(supabase, "user-1", {
-      title: "Nueva tarea",
+      title: "Agregar tarea",
       description: "",
       priority: "Low",
       status: "Todo",
     });
 
     expect(insert).toHaveBeenCalledWith({
-      title: "Nueva tarea",
+      title: "Agregar tarea",
       description: null,
       priority: "Low",
       status: "Todo",
@@ -121,14 +121,14 @@ describe("task service", () => {
     } as unknown as SupabaseClient;
 
     await createUserTask(supabase, "user-1", {
-      title: "Nueva tarea",
+      title: "Agregar tarea",
       description: "",
       priority: "Low",
       status: "Done",
     });
 
     expect(insert).toHaveBeenCalledWith({
-      title: "Nueva tarea",
+      title: "Agregar tarea",
       description: null,
       priority: "Low",
       status: "Done",
@@ -186,6 +186,56 @@ describe("task service", () => {
       priority: "High",
       status: "Done",
       completed_at: completedAt,
+    });
+  });
+
+  it("sets a completion date when editing a task to completed", async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-06-29T12:30:00.000Z"));
+    const { query } = createMutationQuery({ error: null });
+    const update = vi.fn(() => query);
+    const supabase = {
+      from: vi.fn(() => ({ update })),
+    } as unknown as SupabaseClient;
+
+    await updateUserTask(supabase, "user-1", "task-1", {
+      title: "Tarea actualizada",
+      description: "Detalle",
+      priority: "High",
+      status: "Done",
+      completedAt: null,
+    });
+
+    expect(update).toHaveBeenCalledWith({
+      title: "Tarea actualizada",
+      description: "Detalle",
+      priority: "High",
+      status: "Done",
+      completed_at: "2026-06-29T12:30:00.000Z",
+    });
+  });
+
+  it("clears the completion date when editing a completed task to another status", async () => {
+    const { query } = createMutationQuery({ error: null });
+    const update = vi.fn(() => query);
+    const supabase = {
+      from: vi.fn(() => ({ update })),
+    } as unknown as SupabaseClient;
+
+    await updateUserTask(supabase, "user-1", "task-1", {
+      title: "Tarea actualizada",
+      description: "Detalle",
+      priority: "High",
+      status: "In Progress",
+      completedAt: "2026-06-29T12:30:00.000Z",
+    });
+
+    expect(update).toHaveBeenCalledWith({
+      title: "Tarea actualizada",
+      description: "Detalle",
+      priority: "High",
+      status: "In Progress",
+      completed_at: null,
     });
   });
 
