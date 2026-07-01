@@ -96,14 +96,14 @@ describe("task service", () => {
     } as unknown as SupabaseClient;
 
     await createUserTask(supabase, "user-1", {
-      title: "Nueva tarea",
+      title: "Agregar tarea",
       description: "",
       priority: "Low",
       status: "Todo",
     });
 
     expect(insert).toHaveBeenCalledWith({
-      title: "Nueva tarea",
+      title: "Agregar tarea",
       description: null,
       priority: "Low",
       status: "Todo",
@@ -121,14 +121,14 @@ describe("task service", () => {
     } as unknown as SupabaseClient;
 
     await createUserTask(supabase, "user-1", {
-      title: "Nueva tarea",
+      title: "Agregar tarea",
       description: "",
       priority: "Low",
       status: "Done",
     });
 
     expect(insert).toHaveBeenCalledWith({
-      title: "Nueva tarea",
+      title: "Agregar tarea",
       description: null,
       priority: "Low",
       status: "Done",
