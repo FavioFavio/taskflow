@@ -24,11 +24,10 @@ export function UserDropdown({ email }: UserDropdownProps) {
         <Button
           type="button"
           variant="outline"
-          className="max-w-48 justify-start"
+          size="icon"
           aria-label="Abrir menú de usuario"
         >
           <UserCircle className="size-4" aria-hidden="true" />
-          <span className="truncate">{email}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-64">

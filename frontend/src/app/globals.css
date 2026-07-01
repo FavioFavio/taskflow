@@ -143,3 +143,9 @@
     @apply font-sans;
   }
 }
+
+@layer utilities {
+  .text-sm {
+    font-size: inherit;
+  }
+}

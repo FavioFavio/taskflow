@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 
 import { FeedbackMessage } from "@/components/shared/feedback-message";
-import { TaskFormDialog } from "@/features/tasks/components/task-form-dialog";
 import { TaskList } from "@/features/tasks/components/task-list";
 import { TaskSummary } from "@/features/tasks/components/task-summary";
 import { listUserTasks } from "@/features/tasks/services/task-service";
@@ -35,16 +34,6 @@ export default async function TasksPage() {
 
   return (
     <section className="space-y-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-        <div>
-          <h2 className="text-2xl font-semibold tracking-normal">Tareas</h2>
-          <p className="text-muted-foreground mt-2 text-sm">
-            Administrá tus tareas personales.
-          </p>
-        </div>
-        <TaskFormDialog />
-      </div>
-
       {tasksResult.error ? (
         <FeedbackMessage tone="error">{tasksResult.error}</FeedbackMessage>
       ) : (

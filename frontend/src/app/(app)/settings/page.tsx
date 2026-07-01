@@ -50,15 +50,6 @@ export default async function SettingsPage() {
 
   return (
     <section className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-semibold tracking-normal">
-          Configuración
-        </h2>
-        <p className="text-muted-foreground mt-2 text-sm">
-          Opciones de la cuenta y preferencias de uso.
-        </p>
-      </div>
-
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">
         <div className="space-y-6">
           <Card className="border-primary/10">

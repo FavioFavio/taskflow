@@ -18,6 +18,18 @@ describe("navigation utils", () => {
     expect(getCurrentNavigationItem("/settings").title).toBe("Configuración");
   });
 
+  it("returns the Spanish description for the current route", () => {
+    expect(getCurrentNavigationItem("/board").description).toBe(
+      "Visualizá tus tareas agrupadas por estado.",
+    );
+    expect(getCurrentNavigationItem("/tasks").description).toBe(
+      "Administrá tus tareas personales.",
+    );
+    expect(getCurrentNavigationItem("/settings").description).toBe(
+      "Opciones de la cuenta y preferencias de uso.",
+    );
+  });
+
   it("falls back to Tablero for unknown authenticated routes", () => {
     expect(getCurrentNavigationItem("/unknown").title).toBe("Tablero");
   });

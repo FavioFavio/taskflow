@@ -3,14 +3,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 export default function TasksLoading() {
   return (
     <section className="space-y-6" aria-label="Cargando tareas">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-        <div className="space-y-2">
-          <Skeleton className="h-8 w-28" />
-          <Skeleton className="h-4 w-64 max-w-full" />
-        </div>
-        <Skeleton className="h-8 w-full sm:w-32" />
-      </div>
-
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {["total", "pendientes", "en-proceso", "completadas"].map((item) => (
           <div key={item} className="bg-card rounded-lg border p-6 shadow-sm">
