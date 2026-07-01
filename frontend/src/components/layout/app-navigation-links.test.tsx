@@ -17,7 +17,7 @@ vi.mock("next/link", () => ({
 }));
 
 vi.mock("next/navigation", () => ({
-  usePathname: () => "/tasks",
+  usePathname: () => "/board",
 }));
 
 afterEach(() => {
@@ -33,9 +33,8 @@ describe("AppNavigationLinks", () => {
       />,
     );
 
-    expect(screen.getByRole("link", { name: "Inicio" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Tareas" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Tablero" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Tareas" })).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: "Configuración" }),
     ).toBeInTheDocument();
@@ -49,7 +48,7 @@ describe("AppNavigationLinks", () => {
       />,
     );
 
-    const activeLink = screen.getByRole("link", { name: "Tareas" });
+    const activeLink = screen.getByRole("link", { name: "Tablero" });
 
     expect(activeLink).toHaveAttribute("aria-current", "page");
     expect(activeLink).toHaveClass("active");

@@ -13,13 +13,12 @@ describe("navigation utils", () => {
   });
 
   it("returns the Spanish title for the current route", () => {
-    expect(getCurrentNavigationItem("/dashboard").title).toBe("Inicio");
-    expect(getCurrentNavigationItem("/tasks").title).toBe("Tareas");
     expect(getCurrentNavigationItem("/board").title).toBe("Tablero");
+    expect(getCurrentNavigationItem("/tasks").title).toBe("Tareas");
     expect(getCurrentNavigationItem("/settings").title).toBe("Configuración");
   });
 
-  it("falls back to Inicio for unknown authenticated routes", () => {
-    expect(getCurrentNavigationItem("/unknown").title).toBe("Inicio");
+  it("falls back to Tablero for unknown authenticated routes", () => {
+    expect(getCurrentNavigationItem("/unknown").title).toBe("Tablero");
   });
 });

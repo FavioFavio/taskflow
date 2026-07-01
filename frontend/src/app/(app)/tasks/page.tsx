@@ -3,7 +3,9 @@ import { redirect } from "next/navigation";
 import { FeedbackMessage } from "@/components/shared/feedback-message";
 import { TaskFormDialog } from "@/features/tasks/components/task-form-dialog";
 import { TaskList } from "@/features/tasks/components/task-list";
+import { TaskSummary } from "@/features/tasks/components/task-summary";
 import { listUserTasks } from "@/features/tasks/services/task-service";
+import { getTaskStats } from "@/features/tasks/utils/task-stats";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata = {
@@ -29,6 +31,7 @@ export default async function TasksPage() {
           ? error.message
           : "No pudimos cargar tus tareas.",
     }));
+  const taskStats = getTaskStats(tasksResult.tasks);
 
   return (
     <section className="space-y-6">
@@ -45,7 +48,10 @@ export default async function TasksPage() {
       {tasksResult.error ? (
         <FeedbackMessage tone="error">{tasksResult.error}</FeedbackMessage>
       ) : (
-        <TaskList tasks={tasksResult.tasks} />
+        <>
+          <TaskSummary stats={taskStats} />
+          <TaskList tasks={tasksResult.tasks} />
+        </>
       )}
     </section>
   );

@@ -15,10 +15,7 @@ export function Breadcrumb() {
       className="text-muted-foreground flex items-center gap-1 text-sm"
       aria-label="Ruta de navegación"
     >
-      <Link
-        href="/dashboard"
-        className="hover:text-foreground transition-colors"
-      >
+      <Link href="/board" className="hover:text-foreground transition-colors">
         TaskFlow
       </Link>
       <ChevronRight className="size-4" aria-hidden="true" />

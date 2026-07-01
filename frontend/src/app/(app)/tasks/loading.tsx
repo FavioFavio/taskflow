@@ -11,6 +11,18 @@ export default function TasksLoading() {
         <Skeleton className="h-8 w-full sm:w-32" />
       </div>
 
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {["total", "pendientes", "en-proceso", "completadas"].map((item) => (
+          <div key={item} className="bg-card rounded-lg border p-6 shadow-sm">
+            <div className="mb-4 flex items-center justify-between">
+              <Skeleton className="h-4 w-32" />
+              <Skeleton className="size-4 rounded-full" />
+            </div>
+            <Skeleton className="h-9 w-14" />
+          </div>
+        ))}
+      </div>
+
       <div className="rounded-lg border p-6">
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_180px_180px_auto]">
           <Skeleton className="h-16 w-full" />

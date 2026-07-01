@@ -1,12 +1,12 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import { DashboardSummary } from "@/features/dashboard/components/dashboard-summary";
+import { TaskSummary } from "@/features/tasks/components/task-summary";
 
-describe("DashboardSummary", () => {
+describe("TaskSummary", () => {
   it("renders task counters in Spanish", () => {
     render(
-      <DashboardSummary
+      <TaskSummary
         stats={{
           totalTasks: 8,
           pendingTasks: 2,
@@ -17,9 +17,9 @@ describe("DashboardSummary", () => {
     );
 
     expect(screen.getByText("Total de tareas")).toBeInTheDocument();
-    expect(screen.getByText("Tareas pendientes")).toBeInTheDocument();
-    expect(screen.getByText("Tareas en proceso")).toBeInTheDocument();
-    expect(screen.getByText("Tareas completadas")).toBeInTheDocument();
+    expect(screen.getByText("Pendientes")).toBeInTheDocument();
+    expect(screen.getByText("En proceso")).toBeInTheDocument();
+    expect(screen.getByText("Completadas")).toBeInTheDocument();
     expect(screen.getByText("8")).toBeInTheDocument();
     expect(screen.getByText("2")).toBeInTheDocument();
     expect(screen.getAllByText("3")).toHaveLength(2);
@@ -27,7 +27,7 @@ describe("DashboardSummary", () => {
 
   it("shows zero values and an empty state when there are no tasks", () => {
     render(
-      <DashboardSummary
+      <TaskSummary
         stats={{
           totalTasks: 0,
           pendingTasks: 0,

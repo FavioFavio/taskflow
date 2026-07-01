@@ -59,6 +59,51 @@ describe("groupTasksByStatus", () => {
       { status: "Done", tasks: [] },
     ]);
   });
+
+  it("sorts tasks by priority and creation date inside each column", () => {
+    const lowPriorityTask = {
+      ...tasks[0],
+      id: "task-low",
+      title: "Tarea baja",
+      priority: "Low" as const,
+      createdAt: "2026-06-30T00:00:00.000Z",
+    };
+    const olderHighPriorityTask = {
+      ...tasks[0],
+      id: "task-high-old",
+      title: "Tarea alta anterior",
+      priority: "High" as const,
+      createdAt: "2026-06-28T00:00:00.000Z",
+    };
+    const newerHighPriorityTask = {
+      ...tasks[0],
+      id: "task-high-new",
+      title: "Tarea alta nueva",
+      priority: "High" as const,
+      createdAt: "2026-06-30T00:00:00.000Z",
+    };
+    const mediumPriorityTask = {
+      ...tasks[0],
+      id: "task-medium",
+      title: "Tarea media",
+      priority: "Medium" as const,
+      createdAt: "2026-06-29T00:00:00.000Z",
+    };
+
+    const [todoColumn] = groupTasksByStatus([
+      lowPriorityTask,
+      olderHighPriorityTask,
+      mediumPriorityTask,
+      newerHighPriorityTask,
+    ]);
+
+    expect(todoColumn?.tasks.map((task) => task.id)).toEqual([
+      "task-high-new",
+      "task-high-old",
+      "task-medium",
+      "task-low",
+    ]);
+  });
 });
 
 describe("moveTaskToStatus", () => {

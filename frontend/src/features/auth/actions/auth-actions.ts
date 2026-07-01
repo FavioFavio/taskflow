@@ -13,6 +13,8 @@ export type AuthActionState = {
 
 const DEFAULT_AUTH_ERROR =
   "No pudimos completar la autenticación. Revisá los datos e intentá otra vez.";
+const DEFAULT_AUTH_REDIRECT_PATH = "/board";
+const SAFE_AUTH_REDIRECT_PATHS = ["/board", "/tasks", "/settings"] as const;
 
 const loginActionSchema = loginSchema.extend({
   next: z.string().optional(),
@@ -20,10 +22,14 @@ const loginActionSchema = loginSchema.extend({
 
 function getSafeRedirectPath(next?: string) {
   if (next?.startsWith("/dashboard")) {
+    return DEFAULT_AUTH_REDIRECT_PATH;
+  }
+
+  if (next && SAFE_AUTH_REDIRECT_PATHS.some((path) => next.startsWith(path))) {
     return next;
   }
 
-  return "/dashboard";
+  return DEFAULT_AUTH_REDIRECT_PATH;
 }
 
 export async function loginAction(values: unknown): Promise<AuthActionState> {
@@ -71,7 +77,7 @@ export async function registerAction(
   }
 
   if (data.session) {
-    redirect("/dashboard");
+    redirect(DEFAULT_AUTH_REDIRECT_PATH);
   }
 
   return {

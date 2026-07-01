@@ -2,11 +2,11 @@ import { CheckCircle2, CircleDashed, ClipboardList, Timer } from "lucide-react";
 
 import { EmptyState } from "@/components/shared/empty-state";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import type { TaskStats } from "@/features/tasks/types/task-stats";
 import { cn } from "@/lib/utils";
-import type { DashboardStats } from "@/features/dashboard/types/dashboard-stats";
 
-type DashboardSummaryProps = {
-  stats: DashboardStats;
+type TaskSummaryProps = {
+  stats: TaskStats;
 };
 
 const SUMMARY_ITEMS = [
@@ -19,7 +19,7 @@ const SUMMARY_ITEMS = [
       "border-t-primary/70 bg-[linear-gradient(135deg,var(--card)_0%,color-mix(in_oklch,var(--primary),transparent_91%)_100%)]",
   },
   {
-    label: "Tareas pendientes",
+    label: "Pendientes",
     valueKey: "pendingTasks",
     icon: CircleDashed,
     accentClassName: "bg-warning/15 text-warning-foreground dark:text-warning",
@@ -27,7 +27,7 @@ const SUMMARY_ITEMS = [
       "border-t-warning/80 bg-[linear-gradient(135deg,var(--card)_0%,color-mix(in_oklch,var(--warning),transparent_88%)_100%)]",
   },
   {
-    label: "Tareas en proceso",
+    label: "En proceso",
     valueKey: "inProgressTasks",
     icon: Timer,
     accentClassName: "bg-accent text-accent-foreground",
@@ -35,7 +35,7 @@ const SUMMARY_ITEMS = [
       "border-t-accent-foreground/60 bg-[linear-gradient(135deg,var(--card)_0%,color-mix(in_oklch,var(--accent),transparent_55%)_100%)]",
   },
   {
-    label: "Tareas completadas",
+    label: "Completadas",
     valueKey: "completedTasks",
     icon: CheckCircle2,
     accentClassName: "bg-success/10 text-success",
@@ -44,13 +44,13 @@ const SUMMARY_ITEMS = [
   },
 ] as const;
 
-export function DashboardSummary({ stats }: DashboardSummaryProps) {
+export function TaskSummary({ stats }: TaskSummaryProps) {
   const hasTasks = stats.totalTasks > 0;
 
   return (
     <div className="space-y-6">
-      <section aria-labelledby="dashboard-summary-title">
-        <h3 id="dashboard-summary-title" className="sr-only">
+      <section aria-labelledby="task-summary-title">
+        <h3 id="task-summary-title" className="sr-only">
           Resumen de tareas
         </h3>
         <dl className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
